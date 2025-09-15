@@ -1,122 +1,196 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; // standard lib for most of our apps; gives us access to visual components
+// 3 main visual componenets: app bar (menu), scaffold, text
 
-void main() {
-  runApp(const MyApp());
+void main() { // entry point for every flutter app
+  runApp(MyApp()); // takes a widget and makes it the root of the widget tree
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+class MyApp extends StatelessWidget { // think of as a constructor; initializes objects to be used in methods
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+  Widget build(BuildContext context) { // grabs the common features of material design
+    return MaterialApp( // widget that introduces material design to the app
+      home: DefaultTabController( // provides a default tab controller to descendant widgets
+        length: 4, // will change to 4
+        child: _TabsNonScrollableDemo(),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class _TabsNonScrollableDemo extends StatefulWidget {
+  @override
+__TabsNonScrollableDemoState createState() => __TabsNonScrollableDemoState(); // assigns state to the widget
+}
+// _TabsNonScrollableDemo is the blueprint; the state is assigned to __TabsNonScrollableDemoState
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+class __TabsNonScrollableDemoState extends State<_TabsNonScrollableDemo> with SingleTickerProviderStateMixin, RestorationMixin { // state class for the widget; manages the state of the widget
+  late TabController _tabController;
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  final RestorableInt tabIndex = RestorableInt(0);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+  String get restorationId => 'tab_non_scrollable_demo';
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(tabIndex, 'tab_index');
+    _tabController.index = tabIndex.value;
+  }
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+  @override
+  void initState() { // initState is a lifecycle method; called when the widget is inserted into the widget tree
+    super.initState(); // always call super.initState() first when an object is created
+    _tabController = TabController(
+      initialIndex: 0, // starting tab index
+      length: 4, // will change to 4
+      vsync: this, // provides smooth animation
+    );
+    _tabController.addListener(() { // listener to update the tab index when the tab is changed
+      setState(() {
+        tabIndex.value = _tabController.index; // update the tab index
+      });
     });
   }
 
   @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+  void dispose() { // dispose is a lifecycle method; called when the widget is removed from the widget tree
+    _tabController.dispose();
+    tabIndex.dispose();
+    super.dispose(); // always call super.dispose() last when an object is removed
+  }
+
+  @override
+  Widget build(BuildContext context) { // basic app structure/layout
+// For the To do task hint: consider defining the widget and name of the tabs here
+    final tabs = ['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4']; // will add 4
+
+    return Scaffold( // provides a framework for the basic material design visual layout structure
+      appBar: AppBar( // a horizontal bar typically shown at the top of an app
+        automaticallyImplyLeading: false, // removes the back button
+        title: Text(
+          'Tabs Demo',
+        ),
+        bottom: TabBar(
+          controller: _tabController,
+          isScrollable: false,
+          tabs: [
+            for (final tab in tabs) Tab(text: tab),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          // tab 1
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Simple text widget in purple!!!',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: Text('ALERT!!!'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Text("Click Me"),
+                ),
+              ],
+            ),
+          ),
+          // tab 2
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Type something',
+                  ),
+                ),
+                Image.network(
+                  'https://images.unsplash.com/photo-1548915135-ad85929387de?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                  width: 200,
+                  height: 200,
+                ),
+              ],
+            ),
+          ),
+          // tab 3
+          Builder(
+            builder: (context) {
+              return Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Nice')),
+                    );
+                  },
+                  child: Text('Click Me'),
+                ),
+              );
+            },
+          ),
+          // tab 4
+          Center( // ListView widget
+            child: ListView(
+              children: [
+                Card(
+                  child: ListTile(
+                    title: Text('List Item 1'),
+                    subtitle: Text('Details'),
+                  ),
+                ),
+                Card(
+                  child: ListTile(
+                    title: Text('List Item 2'),
+                    subtitle: Text('Details'),
+                  ),
+                ),
+                Card(
+                  child: ListTile(
+                    title: Text('List Item 3'),
+                    subtitle: Text('Details'),
+                  ),
+                ),
+                Card(
+                  child: ListTile(
+                    title: Text('List Item 4'),
+                    subtitle: Text('Details'),
+                  ),
+                ),
+                Card(
+                  child: ListTile(
+                    title: Text('List Item 5'),
+                    subtitle: Text('Details'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
