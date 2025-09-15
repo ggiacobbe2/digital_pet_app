@@ -85,35 +85,11 @@ class TabOne extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            'This is TAB 1',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 12),
-          const Text(
-            'This tab has a styled text and an AlertDialog.',
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
-          ElevatedButton.icon(
-            icon: const Icon(Icons.warning_amber),
-            label: const Text('Display Alert Dialog'),
-            onPressed: () {
-              showDialog<void>(
-                context: context,
-                builder: (_) => AlertDialog(
-                  title: const Text('Alert!'),
-                  content: const Text('This button shows an alert when pressed.'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text('Close'),
-                    ),
-                  ],
-                ),
-              );
-            },
+          Image.network(
+            'https://images.unsplash.com/photo-1706694668166-d09c91016064?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            width: 200,
+            height: 200,
+            fit: BoxFit.cover,
           ),
         ],
       ),
