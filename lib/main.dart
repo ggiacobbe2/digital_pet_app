@@ -110,26 +110,11 @@ class TabTwo extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            const Text(
-              'Name Input and Image',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 16),
-            const TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Name',
-                hintText: 'Enter your name',
-              ),
-            ),
-            const SizedBox(height: 20),
-            Center(
-              child: Image.network(
-                'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2232&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                width: 150,
-                height: 150,
-                fit: BoxFit.cover,
-              ),
+            Image.network(
+              'https://images.unsplash.com/photo-1613520414185-078c05edb341?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              width: 200,
+              height: 200,
+              fit: BoxFit.cover,
             ),
           ],
         ),
