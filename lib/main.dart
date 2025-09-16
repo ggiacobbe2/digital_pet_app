@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-//This is a comment to test git changes and see if giada can see it
+
 void main() {
   runApp(const MyApp());
 }
@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
 class TabOne extends StatelessWidget {
   const TabOne({super.key});
 
-  @overridek
+  @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.red.shade50,
@@ -122,30 +122,32 @@ class TabTwo extends StatelessWidget {
   }
 }
 
-/// ---------------- Tab 3 ----------------
-/// Button + Snackbar
+///Noah ---------------- Tab 3 ----------------
+// Stormy Weather Image 
 class TabThree extends StatelessWidget {
   const TabThree({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue.shade50,
-      child: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Button pressed in Tab 3!')),
-            );
-          },
-          child: const Text('Click me'),
-        ),
+      color: Colors.red.shade50,
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.network(
+            'https://images.unsplash.com/photo-1605035015406-54c130d0bf89?q=80&w=3132&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            width: 200,
+            height: 200,
+            fit: BoxFit.cover,
+          ),
+        ],
       ),
     );
   }
 }
 
-/// ---------------- Tab 4 ----------------
+/// Noah---------------- Tab 4 ----------------
 /// ListView + Cards
 class TabFour extends StatelessWidget {
   const TabFour({super.key});
@@ -153,46 +155,20 @@ class TabFour extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.purple.shade50,
-      child: ListView(
-        padding: const EdgeInsets.all(12),
+      color: Colors.red.shade50,
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Card with custom text
-          Card(
-            elevation: 3,
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'This card has a custom text.\n'
-                'Cards can contain different kinds of widgets!',
-                style: const TextStyle(fontSize: 16),
-              ),
-            ),
-          ),
-
-          // Card with an image
-          Card(
-            elevation: 3,
-            margin: const EdgeInsets.symmetric(vertical: 8),
-            child: Column(
-              children: [
-                Image.network(
-                  'https://images.unsplash.com/photo-1756745678835-00315541d465?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                  fit: BoxFit.cover,
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'This card contains an image.',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-              ],
-            ),
+          Image.network(
+            'https://images.unsplash.com/photo-1702355520244-42f5344aec37?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            width: 200,
+            height: 200,
+            fit: BoxFit.cover,
           ),
         ],
       ),
     );
   }
 }
+
