@@ -88,8 +88,8 @@ class TabOne extends StatelessWidget {
         children: [
           Image.network(
             'https://images.unsplash.com/photo-1706694668166-d09c91016064?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-            width: 200,
-            height: 200,
+            width: 400,
+            height: 400,
             fit: BoxFit.cover,
           ),
         ],
@@ -103,22 +103,20 @@ class TabOne extends StatelessWidget {
 class TabTwo extends StatelessWidget {
   const TabTwo({super.key});
 
-  @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.green.shade50,
+      color: Colors.red.shade50,
       padding: const EdgeInsets.all(16),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Image.network(
-              'https://images.unsplash.com/photo-1613520414185-078c05edb341?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-              width: 200,
-              height: 200,
-              fit: BoxFit.cover,
-            ),
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.network(
+            'https://images.unsplash.com/photo-1613520414185-078c05edb341?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            width: 400,
+            height: 400,
+            fit: BoxFit.cover,
+          ),
+        ],
       ),
     );
   }
